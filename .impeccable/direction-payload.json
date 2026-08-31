@@ -1,0 +1,184 @@
+{
+  "title": "Choose the look of the app",
+  "question": "The roll assigned The Photo Studio. Keep it, pick another, or roll again. A text-picture world was dropped: the card needs a real Photo of a face.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Photo Studio",
+      "kicker": "THE ROLL",
+      "lineage": "Passport photo booth: white backdrop, crop frame, clipboard of details",
+      "thesis": "Every screen is a sitting: the Photo is the work, the Request is the clipboard beside it.",
+      "palette": ["#F3F5F7", "#1C1F22", "#5C6670", "#B42318"],
+      "materials": ["cyclorama paper", "metal crop frame", "clipboard", "even strobe light"],
+      "viewport": "On a phone, the Photo crop fills the top. Name and Matricule sit on the clipboard under it. Send Request is the only big button.",
+      "risk": "Staff may feel they opened a camera app if the queue is not as clear as the Photo.",
+      "raised": [
+        {
+          "from": "challenger-studio-dumbar-identity",
+          "raise": "Photo and fields snap to one module. Nothing floats or scatters."
+        },
+        {
+          "from": "challenger-dream-surreal-impossible-worlds-gravity-rain-garden",
+          "raise": "On a phone, one job owns the screen: Photo, or status, or come collect."
+        },
+        {
+          "from": "challenger-paper-folds-pleats-deployable-miura-orbit-sheet",
+          "raise": "One pull opens a credit-card preview from the Request, then folds back to the form."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.png",
+      "wireframe": {
+        "cols": 6,
+        "rows": 12,
+        "regions": [
+          { "label": "Photo crop", "x": 1, "y": 0, "w": 4, "h": 5, "accent": true },
+          { "label": "Name · Matricule", "x": 0, "y": 5, "w": 6, "h": 1 },
+          { "label": "Request fields", "x": 0, "y": 6, "w": 6, "h": 4 },
+          { "label": "Send Request", "x": 0, "y": 10, "w": 6, "h": 2, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "model-pick",
+      "label": "The Register",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "School matricule attendance book: ruled columns, names, a wet stamp",
+      "thesis": "Open Requests are rows in a school register. The stamp is accept, no, or come collect.",
+      "palette": ["#E6EAEF", "#123A5F", "#1F2933", "#9B1B1B"],
+      "materials": ["ruled stock", "blue-black ink", "rubber stamp", "hairline columns"],
+      "viewport": "Admin sees a short list of Open Requests as register rows. A Student sees only their own row, with the stamp as status.",
+      "risk": "This is the look most school-desk apps land on: easy to trust, easy to look like every other admin list.",
+      "comp": ".impeccable/mocks/decision/model-pick.png",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "Register header", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "Open Requests", "x": 0, "y": 1, "w": 8, "h": 9, "accent": true },
+          { "label": "This Request", "x": 8, "y": 1, "w": 4, "h": 9 }
+        ]
+      }
+    },
+    {
+      "id": "wayfinding-cartography-signage-terminal-yellow-wayfinding",
+      "label": "The Next Sign",
+      "verdict": "competitive",
+      "lineage": "Airport yellow wayfinding bands, black type, one decision per panel",
+      "thesis": "The Request path is a chain of signs: only the next step is huge, everything else waits.",
+      "palette": ["#FFC000", "#0B0B0B", "#FFFFFF", "#E6E6E6"],
+      "materials": ["matte yellow panels", "black pictograms", "metal frames", "split-flap updates"],
+      "viewport": "A yellow band tells the Student the one next step: send, wait, or come collect. Admin bands say check, Print, or mark Arrival.",
+      "case": "Holds product clarity: the path is unmistakable. Loses on home: SLUI is a campus, not a terminal.",
+      "risk": "Reads as an airport product unless every sign names a real Request step.",
+      "comp": ".impeccable/mocks/decision/challenger-wayfinding.png",
+      "hero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-terminal-yellow-wayfinding-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-terminal-yellow-wayfinding.webp",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "Status band", "x": 0, "y": 0, "w": 12, "h": 2, "accent": true },
+          { "label": "Next step", "x": 0, "y": 2, "w": 12, "h": 2 },
+          { "label": "Request body", "x": 0, "y": 4, "w": 12, "h": 6 }
+        ]
+      }
+    },
+    {
+      "id": "signals-instruments-darkroom-safelight-bay",
+      "label": "The Darkroom",
+      "verdict": "competitive",
+      "lineage": "Printing darkroom: amber safelight, trays, a timer you cannot undo",
+      "thesis": "A Request moves through stations you cannot reverse: fill, Photo, send, accept, Print, Pickup.",
+      "palette": ["#FFB000", "#4B2E07", "#8C8C8C", "#F6F1E6"],
+      "materials": ["amber safelight", "enamel trays", "wet silver prints", "timer digits"],
+      "viewport": "The Photo sits in true light, like a print in a tray. Stations along the edge show how far the Request has gone.",
+      "case": "Holds product clarity: sent cannot be taken back. Loses on home: nobody at SLUI works under a safelight.",
+      "risk": "Amber wash must never tint the Photo. Staff have to judge a real face.",
+      "comp": ".impeccable/mocks/decision/challenger-darkroom.png",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay.webp",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "Stations", "x": 0, "y": 0, "w": 2, "h": 10 },
+          { "label": "The sitting", "x": 2, "y": 0, "w": 7, "h": 8, "accent": true },
+          { "label": "Stamp", "x": 9, "y": 0, "w": 3, "h": 10 },
+          { "label": "Next station", "x": 2, "y": 8, "w": 7, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "studio-dumbar-identity",
+      "label": "Color Bars",
+      "verdict": "declined",
+      "lineage": "Studio Dumbar: loud color blocks over photographs",
+      "thesis": "Request fields and the Photo snap under stacked color bars.",
+      "palette": ["#00A3E0", "#E6007E", "#FFED00", "#78BE20"],
+      "materials": ["flat vector bars", "photographic depth", "module grid"],
+      "viewport": "A Photo sits under a stack of saturated bars. Fields lock to the same module.",
+      "case": "Loses both axes: staff cannot scan a queue through confetti, and SLUI is not a Dutch identity studio.",
+      "kept": "Photo and fields lock to one module.",
+      "risk": "Bars would fight the face on the Photo.",
+      "hero": "https://impeccable.style/worlds/cards/studio-dumbar-identity-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/studio-dumbar-identity.webp"
+    },
+    {
+      "id": "dream-surreal-impossible-worlds-gravity-rain-garden",
+      "label": "Gravity Garden",
+      "verdict": "declined",
+      "lineage": "Surreal garden where rain falls by cloud color",
+      "thesis": "Status pulls like local gravity: each Request state has its own fall.",
+      "palette": ["#3D4A45", "#4A90D9", "#C23B3B", "#0A0A0A"],
+      "materials": ["dusk garden", "colored rain", "impossible habitats"],
+      "viewport": "A garden of Request states, each with its own gravity.",
+      "case": "Loses both axes: a garden hides the job, and nobody here lives in one.",
+      "kept": "On a phone, one job owns the screen.",
+      "risk": "Students would not know what to tap.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden.webp"
+    },
+    {
+      "id": "paper-folds-pleats-deployable-miura-orbit-sheet",
+      "label": "The Folded Sheet",
+      "verdict": "declined",
+      "lineage": "Miura-fold packet that opens into a rigid sheet",
+      "thesis": "A draft is a small packet. Send deploys the full Request. You cannot pack it back.",
+      "palette": ["#F7F7F5", "#C9A227", "#8A8F96", "#1A1A1A"],
+      "materials": ["matte sheet", "gold packet", "scored creases"],
+      "viewport": "A compact Request packet. One pull opens the card-sized face.",
+      "case": "Loses both axes: folding is a trick on a desk queue, and staff do not fold satellites.",
+      "kept": "One pull opens the card-sized preview.",
+      "risk": "A fold is a poor way to scan tens of Open Requests.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "A normal school admin app",
+    "thesis": "Sidebar, table of Requests, blue buttons. The usual ID-desk layout, done well.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB", "#F3F4F6"],
+    "materials": ["clean grid", "standard controls", "white cards"],
+    "viewport": "A side list of Open Requests. Click a row. Accept or turn down on the right.",
+    "risk": "Looks like every other admin tool on purpose.",
+    "comp": ".impeccable/mocks/decision/canon.png",
+    "wireframe": {
+      "cols": 12,
+      "rows": 10,
+      "regions": [
+        { "label": "Sidebar", "x": 0, "y": 0, "w": 2, "h": 10 },
+        { "label": "Top bar", "x": 2, "y": 0, "w": 10, "h": 1 },
+        { "label": "Queue table", "x": 2, "y": 1, "w": 10, "h": 9, "accent": true }
+      ]
+    }
+  },
+  "steer": true
+}

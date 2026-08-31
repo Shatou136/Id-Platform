@@ -68,6 +68,7 @@ This STUDENT ID CARD / LIBRARY CARD is the property of ST LOUIS UNIVERSITY INSTI
 - Voice: English, domain vocabulary from `CONTEXT.md`.
 - Identity on the card: school name and logo from settings; Cameroon republic lines and the found-card contacts on the back are fixed.
 - Official SLUI logo and a photo of an existing printed card will be supplied by the product owner. Until those files are in the repo, do not invent a logo, palette, or card face.
+- Standing visual preference: a normal school admin app, played straight. Craft bar is cardPresso (the Print job), a university self-service portal (the Student phone flow), and Linear (the Admin list). Do not smuggle a poster identity or a novelty metaphor on top.
 
 ## Evidence on Hand
 

@@ -1,0 +1,97 @@
+{
+  "title": "Choose a safer look",
+  "question": "You asked for a quieter hand. These three come from school paper and the print desk. The last card is a normal admin app, set next to cardPresso, a university portal, and a typical ID-badge tool. Pick one, or roll again.",
+  "options": [
+    {
+      "id": "fiche",
+      "label": "The Fiche",
+      "lineage": "School carbon-copy form: white, pink, yellow, a stamp you cannot un-ink",
+      "thesis": "A Request is one school fiche. Draft has no stamp. Send locks it. A no comes back on the same sheet with a written reason.",
+      "palette": ["#F4F4F0", "#F2D6D0", "#F3E7B5", "#2C4A6E", "#9B1B1B"],
+      "materials": ["triplicate paper", "carbon blue", "numbered boxes", "wet rubber stamp"],
+      "viewport": "On a phone, one fiche fills the screen: Photo in the corner box, details in numbered lines, Send Request as the stamp at the bottom.",
+      "risk": "Can feel like a tax form if the boxes get too dense for a phone.",
+      "comp": ".impeccable/mocks/decision/safer-fiche.png",
+      "wireframe": {
+        "cols": 6,
+        "rows": 12,
+        "regions": [
+          { "label": "Fiche header", "x": 0, "y": 0, "w": 6, "h": 1 },
+          { "label": "Photo box", "x": 0, "y": 1, "w": 2, "h": 3, "accent": true },
+          { "label": "Name · Matricule", "x": 2, "y": 1, "w": 4, "h": 3 },
+          { "label": "Numbered fields", "x": 0, "y": 4, "w": 6, "h": 5 },
+          { "label": "Stamp · Send", "x": 0, "y": 9, "w": 6, "h": 3, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "gazette",
+      "label": "The Gazette",
+      "lineage": "Cameroon official notice: republic header, black ink on pale stock",
+      "thesis": "Every screen is an official notice of the Request. Status is the headline. The next step is the only action.",
+      "palette": ["#F2F3F5", "#1A1A1A", "#1F4A7A", "#6B7280"],
+      "materials": ["pale stock", "letterhead rule", "dense roman ink", "one institutional blue"],
+      "viewport": "A short official heading, then the one status in large type: draft, sent, come collect. One action under it.",
+      "risk": "Can feel like a ministry site, not a school desk, if the header gets bigger than the job.",
+      "comp": ".impeccable/mocks/decision/safer-gazette.png",
+      "wireframe": {
+        "cols": 6,
+        "rows": 12,
+        "regions": [
+          { "label": "Letterhead", "x": 0, "y": 0, "w": 6, "h": 2 },
+          { "label": "Status notice", "x": 0, "y": 2, "w": 6, "h": 3, "accent": true },
+          { "label": "Request facts", "x": 0, "y": 5, "w": 6, "h": 5 },
+          { "label": "The one action", "x": 0, "y": 10, "w": 6, "h": 2, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "print-desk",
+      "label": "The Print Desk",
+      "lineage": "Evolis desk: crop marks, credit-card plate, fluorescent gray",
+      "thesis": "The card plate is always in view. A Request is a plate in a slot. Print is the same plate, actual size.",
+      "palette": ["#E8EAED", "#2B2F33", "#C9A227", "#111111"],
+      "materials": ["machine gray", "crop marks", "PVC plate", "fluorescent desk light"],
+      "viewport": "A credit-card plate sits in crop marks. Status is the label on the slot. Send or Print is the only big control under it.",
+      "risk": "Students on a phone do not sit at the Evolis. The plate can hide the form if it stays huge.",
+      "comp": ".impeccable/mocks/decision/safer-print-desk.png",
+      "wireframe": {
+        "cols": 6,
+        "rows": 12,
+        "regions": [
+          { "label": "Slot label", "x": 0, "y": 0, "w": 6, "h": 1 },
+          { "label": "Card plate", "x": 1, "y": 1, "w": 4, "h": 5, "accent": true },
+          { "label": "Request fields", "x": 0, "y": 6, "w": 6, "h": 4 },
+          { "label": "Send or Print", "x": 0, "y": 10, "w": 6, "h": 2, "accent": true }
+        ]
+      }
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "A normal school admin app",
+    "thesis": "Sidebar, table of Requests, blue buttons. The craft bar is cardPresso, a university self-service portal, and a typical ID-badge tool — done clean, not copied.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB", "#F3F4F6"],
+    "materials": ["clean grid", "standard controls", "white cards"],
+    "viewport": "A side list of Open Requests. Open a row. Accept or turn down on the right.",
+    "risk": "Looks like those tools on purpose.",
+    "comp": ".impeccable/mocks/decision/safer-canon.png",
+    "wireframe": {
+      "cols": 12,
+      "rows": 10,
+      "regions": [
+        { "label": "Sidebar", "x": 0, "y": 0, "w": 2, "h": 10 },
+        { "label": "Top bar", "x": 2, "y": 0, "w": 10, "h": 1 },
+        { "label": "Queue table", "x": 2, "y": 1, "w": 10, "h": 9, "accent": true }
+      ]
+    }
+  },
+  "steer": true
+}
