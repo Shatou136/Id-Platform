@@ -1,0 +1,25 @@
+{
+  "name": "SLUI Student ID Cards",
+  "short_name": "SLUI ID",
+  "description": "Request and collect a Student ID Card at St. Louis University Institute.",
+  "start_url": "/student",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f4f2",
+  "theme_color": "#e30613",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

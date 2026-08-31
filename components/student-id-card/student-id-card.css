@@ -1,0 +1,391 @@
+.slui-card {
+  --slui-red: #e30613;
+  --slui-blue: #1b4f9c;
+  --cm-green: #007a33;
+  --cm-red: #ce1126;
+  --cm-yellow: #fcd116;
+  --card-ink: #111111;
+  box-sizing: border-box;
+  width: 85.6mm;
+  height: 53.98mm;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  color: var(--card-ink);
+  font-family: Arial, Helvetica, sans-serif;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.slui-card *,
+.slui-card *::before,
+.slui-card *::after {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.slui-card-front {
+  border: 0.15mm solid #d0d0d0;
+}
+
+.slui-card-watermark {
+  position: absolute;
+  right: 10mm;
+  top: 22mm;
+  width: 28mm;
+  height: 28mm;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.slui-card-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.slui-card-header {
+  position: absolute;
+  top: 0;
+  left: 15.2mm;
+  right: 0;
+  height: 12.2mm;
+  background: var(--slui-red);
+  color: #fff;
+  padding: 0.9mm 2.2mm 0.7mm 7.2mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+.slui-card-flag-slot {
+  position: absolute;
+  left: 15.1mm;
+  top: 0;
+  width: 8.4mm;
+  height: 12.2mm;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.slui-card-flag {
+  width: 5.4mm;
+  height: 12.2mm;
+  overflow: hidden;
+  transform: skewX(-24deg);
+  transform-origin: top center;
+}
+
+.slui-card-flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.slui-card-school {
+  margin: 0;
+  font-size: 2.95mm;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.slui-card-faculties {
+  margin: 0.2mm 0 0;
+  font-size: 1.62mm;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.slui-card-auth {
+  margin: 0.3mm 0 0;
+  font-size: 1.05mm;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.slui-card-logo {
+  position: absolute;
+  top: 0.35mm;
+  left: 0.7mm;
+  width: 14.8mm;
+  height: 14.8mm;
+  object-fit: contain;
+  z-index: 4;
+  background: #fff;
+}
+
+.slui-card-title {
+  position: absolute;
+  top: 12.8mm;
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  color: var(--slui-blue);
+  font-size: 2.45mm;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  z-index: 3;
+}
+
+.slui-card-photo {
+  position: absolute;
+  top: 17.4mm;
+  left: 2.1mm;
+  width: 22.2mm;
+  height: 26.6mm;
+  border: 0.28mm solid #2a2a2a;
+  background: #ececec;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.slui-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.slui-card-photo-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1mm;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #7a7a7a;
+}
+
+.slui-card-namebar {
+  position: absolute;
+  top: 17.4mm;
+  left: 25.4mm;
+  right: 2mm;
+  height: 5.3mm;
+  background: var(--slui-red);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2mm;
+  z-index: 3;
+}
+
+.slui-card-namebar span {
+  font-size: 3.05mm;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.slui-card-fields {
+  position: absolute;
+  top: 23.8mm;
+  left: 26.2mm;
+  right: 16.2mm;
+  margin: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85mm;
+}
+
+.slui-card-fields > div {
+  display: flex;
+  gap: 1.1mm;
+  font-size: 1.72mm;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+}
+
+.slui-card-fields dt {
+  margin: 0;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.slui-card-fields dd {
+  margin: 0;
+  font-weight: 500;
+  min-width: 0;
+}
+
+.slui-card-qr {
+  position: absolute;
+  right: 2.3mm;
+  bottom: 8.6mm;
+  width: 12.4mm;
+  height: 12.4mm;
+  z-index: 3;
+  background: #fff;
+}
+
+.slui-card-qr svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.slui-card-validity {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 24.8mm;
+  height: 5.6mm;
+  background: var(--slui-red);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 2mm;
+  font-size: 2.05mm;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  z-index: 4;
+}
+
+.slui-card-barcode {
+  position: absolute;
+  left: 25.6mm;
+  right: 2mm;
+  bottom: 0.8mm;
+  height: 6.6mm;
+  z-index: 3;
+  background: #fff;
+}
+
+.slui-card-barcode svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.slui-card-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5mm 6mm;
+  border: 0.15mm solid #d0d0d0;
+}
+
+.slui-card-back p {
+  margin: 0;
+  color: #111;
+}
+
+.slui-back-republic {
+  font-size: 3.15mm;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.slui-back-motto {
+  margin-top: 1.1mm;
+  font-size: 2.7mm;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.slui-back-this {
+  margin-top: 2.4mm;
+  font-size: 2.35mm;
+  font-weight: 400;
+}
+
+.slui-back-kind {
+  margin-top: 0.9mm;
+  font-size: 3.05mm;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.slui-back-property {
+  margin-top: 1.1mm;
+  font-size: 2.35mm;
+  font-weight: 400;
+}
+
+.slui-back-school {
+  margin-top: 1.3mm;
+  font-size: 3.35mm;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.slui-back-return {
+  margin-top: 3.2mm;
+  font-size: 2.35mm;
+  font-weight: 400;
+}
+
+.slui-back-tel {
+  margin-top: 1.4mm;
+  font-size: 2.45mm;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.slui-back-email {
+  margin-top: 1.3mm;
+  font-size: 2.45mm;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.35mm;
+}
+
+.slui-card-stage {
+  width: 85.6mm;
+  height: 53.98mm;
+}
+
+.slui-card-stage[data-scale="preview"] {
+  width: calc(85.6mm * 1.85);
+  height: calc(53.98mm * 1.85);
+}
+
+.slui-card-stage[data-scale="preview"] .slui-card {
+  transform: scale(1.85);
+  transform-origin: top left;
+}
+
+.slui-print-sheet {
+  background: #fff;
+}
+
+.slui-print-sheet .slui-card-stage + .slui-card-stage {
+  margin-top: 12px;
+}
+
+@media print {
+  .slui-card {
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    transform: none;
+  }
+
+  .slui-card-stage {
+    width: 85.6mm;
+    height: 53.98mm;
+  }
+
+  .slui-print-sheet .slui-card-stage + .slui-card-stage {
+    margin-top: 0;
+    break-before: page;
+  }
+}

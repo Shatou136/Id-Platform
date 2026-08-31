@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Staff {
+  email String @id
+  role  String
+}
+
+model SchoolSettings {
+  id             String @id
+  universityName String
+  logoSrc        String
+  emailEnding    String @default("")
+}
+
+model Campus {
+  name String @id
+}
+
+model Programme {
+  name String @id
+}
+
+model Person {
+  email             String    @id
+  emailConfirmedAt  DateTime?
+  confirmToken      String?   @unique
+  confirmExpiresAt  DateTime?
+  resetToken        String?   @unique
+  resetExpiresAt    DateTime?
+  pushSubscription  String?
+  createdAt         DateTime  @default(now())
+}
+
+model Request {
+  id             String   @id
+  studentEmail   String
+  status         String
+  reason         String
+  fullName       String   @default("")
+  sex            String   @default("Female")
+  dateOfBirth    String   @default("")
+  placeOfBirth   String   @default("")
+  matricule      String   @default("")
+  programme      String   @default("")
+  campus         String   @default("")
+  expiry         String   @default("")
+  photoSrc       String   @default("")
+  turnDownReason String   @default("")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([studentEmail])
+  @@index([matricule])
+  @@index([status])
+}

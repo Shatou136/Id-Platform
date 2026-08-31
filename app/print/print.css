@@ -1,0 +1,54 @@
+@page {
+  size: 85.6mm 53.98mm;
+  margin: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+.print-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--foreground);
+}
+
+.print-toolbar button {
+  appearance: none;
+  border: 0;
+  background: #e30613;
+  color: #fff;
+  font: inherit;
+  font-weight: 650;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.print-toolbar .print-back {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #c9cdd4;
+  background: #fff;
+  color: #16181d;
+}
+
+@media print {
+  .print-toolbar {
+    display: none;
+  }
+
+  html,
+  body {
+    width: 85.6mm;
+    height: 53.98mm;
+  }
+}
