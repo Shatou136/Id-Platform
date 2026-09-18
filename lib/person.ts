@@ -2,43 +2,18 @@ import { randomBytes } from "crypto";
 import { prisma } from "@/lib/db";
 import { roleForEmail } from "@/lib/staff";
 
-const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
-
 export async function ensurePerson(email: string) {
   const existing = await prisma.person.findUnique({ where: { email } });
-  const role = await roleForEmail(email);
-  if (role === "Admin" || role === "Super Admin") {
-    if (existing?.emailConfirmedAt) return existing;
-    return prisma.person.upsert({
-      where: { email },
-      create: { email, emailConfirmedAt: new Date() },
-      update: { emailConfirmedAt: new Date(), confirmToken: null, confirmExpiresAt: null },
-    });
-  }
-  if (existing?.emailConfirmedAt) return existing;
-  if (
-    existing?.confirmToken &&
-    existing.confirmExpiresAt &&
-    existing.confirmExpiresAt.getTime() > Date.now()
-  ) {
-    return existing;
-  }
-  const token = randomBytes(24).toString("hex");
-  const confirmExpiresAt = new Date(Date.now() + WEEK_MS);
-  if (existing) {
-    return prisma.person.update({
-      where: { email },
-      data: { confirmToken: token, confirmExpiresAt },
-    });
-  }
-  return prisma.person.create({
-    data: { email, confirmToken: token, confirmExpiresAt },
+  if (existing?.emailConfirmedAt && !existing.confirmToken) return existing;
+  return prisma.person.upsert({
+    where: { email },
+    create: { email, emailConfirmedAt: new Date() },
+    update: {
+      emailConfirmedAt: existing?.emailConfirmedAt ?? new Date(),
+      confirmToken: null,
+      confirmExpiresAt: null,
+    },
   });
-}
-
-export async function isEmailConfirmed(email: string) {
-  const person = await prisma.person.findUnique({ where: { email } });
-  return Boolean(person?.emailConfirmedAt);
 }
 
 export async function confirmEmail(token: string) {
@@ -56,10 +31,6 @@ export async function confirmEmail(token: string) {
     },
   });
   return { email: person.email };
-}
-
-export function confirmPath(token: string | null | undefined) {
-  return token ? `/confirm/${token}` : null;
 }
 
 const RESET_MS = 2 * 60 * 60 * 1000;

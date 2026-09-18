@@ -167,6 +167,89 @@ textarea {
   outline-offset: 2px;
 }
 
+.ping-bell {
+  position: relative;
+  z-index: 40;
+  flex-shrink: 0;
+}
+
+.ping-bell__button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--secondary);
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.ping-bell__button:hover {
+  background: var(--muted);
+}
+
+.ping-bell__badge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: var(--slui-red);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1.05rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.ping-switch {
+  appearance: none;
+  position: relative;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 1.6rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--secondary);
+  cursor: pointer;
+}
+
+.ping-switch[aria-checked="true"] {
+  background: var(--slui-red);
+  border-color: var(--slui-red);
+}
+
+.ping-switch:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ping-switch__knob {
+  position: absolute;
+  top: 0.15rem;
+  left: 0.15rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 2px oklch(0 0 0 / 18%);
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ping-switch[aria-checked="true"] .ping-switch__knob {
+  transform: translateX(1.15rem);
+}
+
 .theme-toggle {
   position: relative;
   z-index: 40;

@@ -1,4 +1,10 @@
 import type { Sex, StudentIdCardInput } from "@/lib/card-fields";
+import {
+  CAMPUS_GROUPS,
+  PROGRAMME_GROUPS,
+  SEED_CAMPUSES,
+  SEED_PROGRAMMES,
+} from "@/lib/school-identity";
 
 type RequestFieldsFormProps = {
   fields: StudentIdCardInput;
@@ -31,8 +37,14 @@ export function RequestFieldsForm({
     onChange({ ...fields, [key]: value });
   }
 
-  const programmeOptions = unique([...programmes, fields.programme]);
-  const campusOptions = unique([...campuses, fields.campus]);
+  const officialProgrammes = new Set<string>(SEED_PROGRAMMES);
+  const extraProgrammes = unique([...programmes, fields.programme]).filter(
+    (name) => !officialProgrammes.has(name),
+  );
+  const officialCampuses = new Set<string>(SEED_CAMPUSES);
+  const extraCampuses = unique([...campuses, fields.campus]).filter(
+    (name) => !officialCampuses.has(name),
+  );
 
   return (
     <div className="grid gap-4 sm:grid-cols-2">
@@ -95,7 +107,16 @@ export function RequestFieldsForm({
           onChange={(event) => set("programme", event.target.value)}
         >
           <option value="">Select Programme</option>
-          {programmeOptions.map((item) => (
+          {PROGRAMME_GROUPS.map((group) => (
+            <optgroup key={group.label} label={group.label}>
+              {group.programmes.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+          {extraProgrammes.map((item) => (
             <option key={item} value={item}>
               {item}
             </option>
@@ -111,7 +132,16 @@ export function RequestFieldsForm({
           onChange={(event) => set("campus", event.target.value)}
         >
           <option value="">Select Campus</option>
-          {campusOptions.map((item) => (
+          {CAMPUS_GROUPS.map((group) => (
+            <optgroup key={group.label} label={group.label}>
+              {group.campuses.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+          {extraCampuses.map((item) => (
             <option key={item} value={item}>
               {item}
             </option>

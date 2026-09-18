@@ -7,7 +7,6 @@ import {
   type RequestStatus,
 } from "@/lib/id-request";
 import type { StudentIdCardInput } from "@/lib/card-fields";
-import { isEmailConfirmed } from "@/lib/person";
 import { persistPhoto } from "@/lib/photo-store";
 
 const OPEN: RequestStatus[] = [
@@ -160,11 +159,6 @@ export async function sendRequest(id: string, studentEmail: string) {
   }
   if (row.status !== "draft" && row.status !== "turned_down") {
     return { error: "This Request cannot be sent." };
-  }
-  if (!(await isEmailConfirmed(studentEmail))) {
-    return {
-      error: "Click the confirm link sent to your Email before you can send a Request.",
-    };
   }
   const missing = missingFields(toIdRequest(row).fields);
   if (missing) return { error: `Add ${missing} before sending.` };

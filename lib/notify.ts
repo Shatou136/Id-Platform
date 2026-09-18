@@ -1,5 +1,18 @@
 import { sendComeCollectMail, sendTurnedDownMail } from "@/lib/mail";
-import { pingComeCollect, pingTurnedDown } from "@/lib/ping";
+import {
+  pingAccepted,
+  pingComeCollect,
+  pingSent,
+  pingTurnedDown,
+} from "@/lib/ping";
+
+export async function notifySent(to: string) {
+  await pingSent(to);
+}
+
+export async function notifyAccepted(to: string) {
+  await pingAccepted(to);
+}
 
 export async function notifyTurnedDown(
   to: string,

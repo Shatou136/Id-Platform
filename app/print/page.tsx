@@ -47,11 +47,12 @@ function PrintClient() {
   return (
     <div>
       <div className="print-toolbar">
-        <AdminBackButton
-          fallback="/admin"
-          className="print-back"
-        />
-        <button type="button" onClick={() => window.print()}>
+        <AdminBackButton fallback="/admin" />
+        <button
+          type="button"
+          className="print-action"
+          onClick={() => window.print()}
+        >
           Print Student ID Card
         </button>
         {missing ? (

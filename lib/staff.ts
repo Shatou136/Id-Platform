@@ -1,5 +1,10 @@
 import { prisma } from "@/lib/db";
-import { SCHOOL, SEED_CAMPUSES, SEED_PROGRAMMES } from "@/lib/school-identity";
+import {
+  PHOTOGRAPHED_PROGRAMME_SEED,
+  SCHOOL,
+  SEED_CAMPUSES,
+  SEED_PROGRAMMES,
+} from "@/lib/school-identity";
 
 export type StaffRole = "Admin" | "Super Admin";
 export type Role = "Student" | StaffRole;
@@ -51,16 +56,29 @@ export async function ensureSeeded() {
       },
     });
   }
-  if ((await prisma.campus.count()) === 0) {
-    await prisma.campus.createMany({
-      data: SEED_CAMPUSES.map((name) => ({ name })),
-    });
-  }
-  if ((await prisma.programme.count()) === 0) {
-    await prisma.programme.createMany({
-      data: SEED_PROGRAMMES.map((name) => ({ name })),
-    });
-  }
+  await seedCampuses();
+  await seedProgrammes();
+}
+
+async function seedCampuses() {
+  await prisma.campus.createMany({
+    data: SEED_CAMPUSES.map((name) => ({ name })),
+    skipDuplicates: true,
+  });
+}
+
+async function seedProgrammes() {
+  await prisma.programme.createMany({
+    data: SEED_PROGRAMMES.map((name) => ({ name })),
+    skipDuplicates: true,
+  });
+  await prisma.programme.deleteMany({
+    where: { name: PHOTOGRAPHED_PROGRAMME_SEED },
+  });
+  await prisma.request.updateMany({
+    where: { programme: PHOTOGRAPHED_PROGRAMME_SEED },
+    data: { programme: "HND SOFTWARE ENGINEERING" },
+  });
 }
 
 export async function roleForEmail(email: string): Promise<Role> {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { appOrigin, sendResetMail } from "@/lib/mail";
-import { requestResetLink, resetPath } from "@/lib/person";
+import { auth } from "@/lib/auth";
+import { appOrigin } from "@/lib/mail";
 import { normalizeEmail } from "@/lib/staff";
 
 export async function POST(request: Request) {
@@ -9,9 +9,11 @@ export async function POST(request: Request) {
   if (!email || !email.includes("@")) {
     return NextResponse.json({ error: "Enter a valid Email." }, { status: 400 });
   }
-  const token = await requestResetLink(email);
-  if (token) {
-    await sendResetMail(email, `${appOrigin(request)}${resetPath(token)}`);
-  }
+  await auth.api.requestPasswordReset({
+    body: {
+      email,
+      redirectTo: `${appOrigin(request)}/reset`,
+    },
+  });
   return NextResponse.json({ ok: true });
 }

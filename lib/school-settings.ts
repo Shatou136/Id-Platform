@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { prisma } from "@/lib/db";
-import { SCHOOL } from "@/lib/school-identity";
+import { officialCampuses, officialProgrammes, SCHOOL } from "@/lib/school-identity";
 import { ensureSeeded } from "@/lib/staff";
 
 const LOGO_DIR = path.join(process.cwd(), "data");
@@ -11,16 +11,14 @@ export async function getSchoolSettings() {
   const settings = await prisma.schoolSettings.findUnique({
     where: { id: "slui" },
   });
-  const campuses = await prisma.campus.findMany({ orderBy: { name: "asc" } });
-  const programmes = await prisma.programme.findMany({
-    orderBy: { name: "asc" },
-  });
+  const campuses = await prisma.campus.findMany();
+  const programmes = await prisma.programme.findMany();
   return {
     universityName: settings?.universityName ?? SCHOOL.name,
     logoSrc: settings?.logoSrc ?? SCHOOL.logoSrc,
     emailEnding: settings?.emailEnding ?? "",
-    campuses: campuses.map((row) => row.name),
-    programmes: programmes.map((row) => row.name),
+    campuses: officialCampuses(campuses.map((row) => row.name)),
+    programmes: officialProgrammes(programmes.map((row) => row.name)),
   };
 }
 

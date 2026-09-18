@@ -50,7 +50,7 @@ function SignInForm() {
       <div className="mx-auto max-w-md pt-6">
         <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
         <p className="mt-2 text-[15px] leading-6 text-muted">
-          Use the Email you will keep for {SCHOOL.name} Student ID Cards. A
+          Use the Email you signed up with for {SCHOOL.name} Student ID Cards. A
           staff Email on the Admin list opens the Admin desk. Any other Email
           is a Student.
         </p>
@@ -94,11 +94,14 @@ function SignInForm() {
             Forgot password?
           </Link>
         </p>
-        <p className="mt-6 text-[13px] leading-5 text-muted">
-          School Auth (Supabase) is not connected yet. Passwords must be at
-          least 8 characters and are not stored. Sign in as{" "}
-          <strong>admin@slui.org</strong> for Super Admin, or any other Email
-          for Student.
+        <p className="mt-3 text-[13px] leading-5">
+          Don&apos;t have an account?{" "}
+          <Link
+            className="font-medium text-foreground hover:text-accent"
+            href={nextPath ? `/sign-up?next=${encodeURIComponent(nextPath)}` : "/sign-up"}
+          >
+            Sign up
+          </Link>
         </p>
       </div>
     </AppShell>

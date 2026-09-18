@@ -12,6 +12,7 @@ import {
   type RequestStatus,
 } from "@/lib/id-request";
 import type { StudentIdCardInput } from "@/lib/card-fields";
+import { officialCampuses, officialProgrammes } from "@/lib/school-identity";
 
 type Queue = "to-check" | "to-print" | "at-campus";
 
@@ -43,8 +44,8 @@ export default function AdminPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [role, setRole] = useState<"Admin" | "Super Admin">("Admin");
-  const [campuses, setCampuses] = useState<string[]>([]);
-  const [programmes, setProgrammes] = useState<string[]>([]);
+  const [campuses, setCampuses] = useState<string[]>(officialCampuses());
+  const [programmes, setProgrammes] = useState<string[]>(officialProgrammes());
   const [logoSrc, setLogoSrc] = useState("/logo.jpg");
   const [schoolName, setSchoolName] = useState("");
 
@@ -67,8 +68,8 @@ export default function AdminPage() {
       if (cancelled) return;
       setRows(data.requests ?? []);
       if (me.session?.role === "Super Admin") setRole("Super Admin");
-      setCampuses(lists.campuses ?? []);
-      setProgrammes(lists.programmes ?? []);
+      setCampuses(officialCampuses(lists.campuses ?? []));
+      setProgrammes(officialProgrammes(lists.programmes ?? []));
       if (lists.logoSrc) setLogoSrc(lists.logoSrc);
       if (lists.universityName) setSchoolName(lists.universityName.toUpperCase());
       setLoaded(true);

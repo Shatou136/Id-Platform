@@ -19,7 +19,7 @@ This STUDENT ID CARD / LIBRARY CARD is the property of ST LOUIS UNIVERSITY INSTI
 _Avoid_: digital ID, access card, payment card, badge, library card (as a separate thing)
 
 **Email**:
-The address a person uses to sign in. They must click a link sent to that Email before they can send a Request. Students often use Gmail or other mail, not @slui.org. We do not lock the Email ending. Admin checks that the person is a real student. A “forgot password” link is sent to the same Email. A Super Admin can also reset a password.
+The address a person uses to sign in. Students often use Gmail or other mail, not @slui.org. We do not lock the Email ending. Admin checks that the person is a real student. A “forgot password” link is sent to the same Email. A Super Admin can also reset a password.
 _Avoid_: school email, username, account (as a synonym for this address)
 
 **Student**:
@@ -35,8 +35,12 @@ A staff member who can do everything an Admin can, plus change school settings a
 _Avoid_: first admin, superadmin, root, owner, super user
 
 **Request**:
-One ask from a Student for a Student ID Card. It holds the details they typed (including Sex, Date of birth, Place of birth, and Matricule), their Photo, the Campus where they will pick up the card, and a reason: first card, or lost / damaged. If an Admin turns it down, it is still the same Request: the Student fixes it and sends it again. A “no” must include a written reason. The Student sees that reason when they open the app, and they also get a phone ping and an email. They can save a draft before sending. A draft is not an Open Request and Admins do not see it. Once a Request is sent, the Student cannot change it or take it back. They wait for an Admin. If an Admin says no, they can fix it and send it again.
+One ask from a Student for a Student ID Card. It holds the details they typed (including Sex, Date of birth, Place of birth, and Matricule), their Photo, the Campus where they will pick up the card, and a reason: first card, or lost / damaged. If an Admin turns it down, it is still the same Request: the Student fixes it and sends it again. A “no” must include a written reason. The Student sees that reason when they open the app, and they also get a phone ping and an email. They can save a draft before sending. A draft is not an Open Request and Admins do not see it. Once a Request is sent, the Student cannot change it or take it back. They wait for an Admin. If an Admin says no, they can fix it and send it again. A phone ping also goes out when the Request is sent and when an Admin accepts it. Print does not ping.
 _Avoid_: submission, application, ticket, form (as a name for this thing)
+
+**Phone ping**:
+A short alert on the Student’s phone, and a message in the app, when a Request is sent, accepted, turned down, or ready for Pickup. The Student can allow or stop pings. Email is the backup if a ping never arrives.
+_Avoid_: push notification (in speech we can say ping), SMS, text, toast
 
 **Open Request**:
 A Request that is not yet collected. A Student may have only one Open Request. They may send a lost-card Request only after the last card was collected.

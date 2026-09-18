@@ -3,7 +3,7 @@ import path from "path";
 import { Resend } from "resend";
 import { SCHOOL } from "@/lib/school-identity";
 
-export type MailKind = "confirm" | "turned_down" | "come_collect" | "reset";
+export type MailKind = "turned_down" | "come_collect" | "reset";
 
 export type MailRecord = {
   kind: MailKind;
@@ -20,11 +20,16 @@ export function mailConfigured() {
   return Boolean(process.env.RESEND_API_KEY);
 }
 
+export function appOriginFromEnv() {
+  const fromAuth = process.env.BETTER_AUTH_URL?.replace(/\/$/, "");
+  if (fromAuth) return fromAuth;
+  const fromApp = process.env.APP_BASE_URL?.replace(/\/$/, "");
+  if (fromApp) return fromApp;
+  return null;
+}
+
 export function appOrigin(request: Request) {
-  if (process.env.APP_BASE_URL) {
-    return process.env.APP_BASE_URL.replace(/\/$/, "");
-  }
-  return new URL(request.url).origin;
+  return appOriginFromEnv() ?? new URL(request.url).origin;
 }
 
 function fromAddress() {
@@ -70,21 +75,6 @@ async function deliver(kind: MailKind, to: string, subject: string, text: string
   return delivered;
 }
 
-export async function sendConfirmMail(to: string, confirmUrl: string) {
-  return deliver(
-    "confirm",
-    to,
-    `Confirm your Email for ${SCHOOL.name} Student ID Cards`,
-    [
-      `Confirm this Email so you can send a Request for a Student ID Card at ${SCHOOL.name}.`,
-      "",
-      confirmUrl,
-      "",
-      "If you did not ask for this, ignore this mail.",
-    ].join("\n"),
-  );
-}
-
 export async function sendTurnedDownMail(
   to: string,
   fullName: string,
@@ -115,7 +105,7 @@ export async function sendResetMail(to: string, resetUrl: string) {
     to,
     `Reset link for ${SCHOOL.name} Student ID Cards`,
     [
-      `Use this link to sign in to ${SCHOOL.name} Student ID Cards.`,
+      `Use this link to choose a new password for ${SCHOOL.name} Student ID Cards.`,
       "",
       resetUrl,
       "",

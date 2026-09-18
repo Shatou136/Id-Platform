@@ -280,8 +280,8 @@ export default function SettingsPage() {
         <section className="space-y-3 rounded-lg bg-surface p-4 ring-1 ring-line">
           <h2 className="text-lg font-semibold">Reset a password</h2>
           <p className="text-[15px] leading-6 text-muted">
-            Send a reset link to an Email. Opening it signs that person in.
-            Passwords are not stored until school Auth is connected.
+            Send a reset link to an Email. Opening it lets that person choose a
+            new password.
           </p>
           <div className="flex flex-col gap-2 sm:flex-row">
             <input

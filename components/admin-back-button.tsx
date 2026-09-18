@@ -1,6 +1,9 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 const STAFF_HOME = "/admin";
 
@@ -18,37 +21,12 @@ function parentHref(pathname: string): string | null {
   return null;
 }
 
-function BackChevron() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M10 3.5 5.5 8 10 12.5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-const defaultClassName =
-  "inline-flex min-h-11 items-center gap-1.5 text-[13px] font-medium text-foreground hover:text-accent";
-
 export function AdminBackButton({
   fallback,
   label = "Back",
-  className = defaultClassName,
 }: {
   fallback?: string;
   label?: string;
-  className?: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -56,9 +34,10 @@ export function AdminBackButton({
   const href = fallback ?? parentHref(path) ?? STAFF_HOME;
 
   return (
-    <button
+    <Button
       type="button"
-      className={className}
+      variant="outline"
+      size="default"
       onClick={() => {
         if (typeof window !== "undefined" && window.history.length > 1) {
           router.back();
@@ -67,14 +46,20 @@ export function AdminBackButton({
         router.push(href);
       }}
     >
-      <BackChevron />
+      <ChevronLeft />
       {label}
-    </button>
+    </Button>
   );
 }
 
-export function StaffHeaderBack() {
+export function StaffBackBar() {
   const pathname = usePathname();
   if (!parentHref(pathname ?? "")) return null;
-  return <AdminBackButton />;
+  return (
+    <div className="border-b border-line bg-background">
+      <div className="mx-auto flex w-full max-w-6xl px-4 py-3">
+        <AdminBackButton />
+      </div>
+    </div>
+  );
 }

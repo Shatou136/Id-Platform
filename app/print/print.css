@@ -20,7 +20,7 @@ body {
   color: var(--foreground);
 }
 
-.print-toolbar button {
+.print-toolbar .print-action {
   appearance: none;
   border: 0;
   background: #e30613;
@@ -29,16 +29,6 @@ body {
   font-weight: 650;
   padding: 10px 16px;
   cursor: pointer;
-}
-
-.print-toolbar .print-back {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  gap: 6px;
-  border: 1px solid #c9cdd4;
-  background: #fff;
-  color: #16181d;
 }
 
 @media print {

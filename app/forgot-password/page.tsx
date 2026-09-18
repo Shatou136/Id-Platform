@@ -36,7 +36,7 @@ export default function ForgotPasswordPage() {
         {sent ? (
           <p className="mt-4 text-[15px] leading-6 text-muted">
             If that Email is used for {SCHOOL.name} Student ID Cards, we sent a
-            reset link. Open it to sign in.
+            reset link. Open it to choose a new password.
           </p>
         ) : (
           <>

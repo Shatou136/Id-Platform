@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { appOrigin, sendConfirmMail } from "@/lib/mail";
-import { confirmPath, ensurePerson } from "@/lib/person";
-import { writeSession } from "@/lib/session";
+import { signInWithPassword } from "@/lib/auth";
+import { ensurePerson } from "@/lib/person";
 import { normalizeEmail, roleForEmail } from "@/lib/staff";
 
 export async function POST(request: Request) {
@@ -17,12 +16,16 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
-  await writeSession(email);
-  const person = await ensurePerson(email);
-  const role = await roleForEmail(email);
-  if (role === "Student" && !person.emailConfirmedAt && person.confirmToken) {
-    const url = `${appOrigin(request)}${confirmPath(person.confirmToken)}`;
-    await sendConfirmMail(email, url);
+
+  const signedIn = await signInWithPassword(email, password);
+  if (!signedIn.ok) {
+    return NextResponse.json(
+      { error: signedIn.error },
+      { status: 400 },
+    );
   }
+
+  await ensurePerson(email);
+  const role = await roleForEmail(email);
   return NextResponse.json({ email, role });
 }

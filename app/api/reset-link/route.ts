@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { appOrigin, mailConfigured, sendResetMail } from "@/lib/mail";
-import { requestResetLink, resetPath } from "@/lib/person";
+import { auth, takeResetPath } from "@/lib/auth";
+import { prisma } from "@/lib/db";
+import { appOrigin, mailConfigured } from "@/lib/mail";
 import { readSession } from "@/lib/session";
 import { normalizeEmail } from "@/lib/staff";
 
@@ -17,18 +18,22 @@ export async function POST(request: Request) {
   if (!email || !email.includes("@")) {
     return NextResponse.json({ error: "Enter a valid Email." }, { status: 400 });
   }
-  const token = await requestResetLink(email);
-  if (!token) {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) {
     return NextResponse.json(
       { error: "That Email is not on this app yet." },
       { status: 404 },
     );
   }
-  const path = resetPath(token);
-  await sendResetMail(email, `${appOrigin(request)}${path}`);
+  await auth.api.requestPasswordReset({
+    body: {
+      email,
+      redirectTo: `${appOrigin(request)}/reset`,
+    },
+  });
   return NextResponse.json({
     ok: true,
     email,
-    resetPath: mailConfigured() ? null : path,
+    resetPath: mailConfigured() ? null : takeResetPath(email),
   });
 }

@@ -1,60 +1,32 @@
-import { SignJWT, jwtVerify } from "jose";
-import { cookies } from "next/headers";
-import { SESSION_COOKIE } from "@/lib/auth-constants";
-import { normalizeEmail, parseRole, roleForEmail, type Role } from "@/lib/staff";
-
-export { SESSION_COOKIE };
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { normalizeEmail, roleForEmail, type Role } from "@/lib/staff";
 
 export type Session = {
   email: string;
   role: Role;
 };
 
-function secretKey() {
-  const secret = process.env.SESSION_SECRET ?? "dev-only-slui-session-secret";
-  return new TextEncoder().encode(secret);
-}
-
-export async function createSessionToken(email: string) {
-  const normalized = normalizeEmail(email);
-  return new SignJWT({
-    email: normalized,
-    role: await roleForEmail(normalized),
-  })
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("14d")
-    .sign(secretKey());
-}
-
 export async function readSession(): Promise<Session | null> {
-  const jar = await cookies();
-  const token = jar.get(SESSION_COOKIE)?.value;
-  if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, secretKey());
-    const email = String(payload.email ?? "");
-    const role = parseRole(payload.role);
+    const result = await auth.api.getSession({
+      headers: await headers(),
+    });
+    const email = result?.user?.email;
     if (!email) return null;
-    return { email, role };
+    const normalized = normalizeEmail(email);
+    return { email: normalized, role: await roleForEmail(normalized) };
   } catch {
     return null;
   }
 }
 
-export async function writeSession(email: string) {
-  const token = await createSessionToken(email);
-  const jar = await cookies();
-  jar.set(SESSION_COOKIE, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 14,
-    secure: process.env.NODE_ENV === "production",
-  });
-}
-
 export async function clearSession() {
-  const jar = await cookies();
-  jar.delete(SESSION_COOKIE);
+  try {
+    await auth.api.signOut({
+      headers: await headers(),
+    });
+  } catch {
+    // Browser is still signed out of this app if the cookie is gone.
+  }
 }

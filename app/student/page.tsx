@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { AppShell } from "@/components/app-shell";
-import { PhonePing } from "@/components/phone-ping";
+import { PhonePingSwitch } from "@/components/phone-ping-switch";
 import { RequestFieldsForm } from "@/components/request-fields-form";
 import { CardBack, CardFront } from "@/components/student-id-card";
 import type { StudentIdCardInput } from "@/lib/card-fields";
+import { officialCampuses, officialProgrammes } from "@/lib/school-identity";
 import {
   reasonLabel,
   statusLabel,
@@ -13,51 +14,69 @@ import {
   type RequestReason,
 } from "@/lib/id-request";
 
+async function readJson<T>(response: Response): Promise<T | null> {
+  const text = await response.text();
+  if (!text) return null;
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return null;
+  }
+}
+
 export default function StudentPage() {
   const [row, setRow] = useState<IdRequest | null>(null);
   const [error, setError] = useState("");
   const [loaded, setLoaded] = useState(false);
-  const [emailConfirmed, setEmailConfirmed] = useState(false);
-  const [confirmPath, setConfirmPath] = useState<string | null>(null);
-  const [mailConfigured, setMailConfigured] = useState(false);
-  const [campuses, setCampuses] = useState<string[]>([]);
-  const [programmes, setProgrammes] = useState<string[]>([]);
+  const [campuses, setCampuses] = useState<string[]>(officialCampuses());
+  const [programmes, setProgrammes] = useState<string[]>(officialProgrammes());
   const [logoSrc, setLogoSrc] = useState("/logo.jpg");
   const [schoolName, setSchoolName] = useState("");
 
   useEffect(() => {
     let cancelled = false;
     void Promise.all([
-      fetch("/api/requests").then((response) => response.json()),
-      fetch("/api/me").then((response) => response.json()),
-      fetch("/api/lists").then((response) => response.json()),
-    ]).then(([requestData, me, lists]: [
-      { request?: IdRequest | null },
-      {
-        emailConfirmed?: boolean;
-        confirmPath?: string | null;
-        mailConfigured?: boolean;
-      },
-      {
-        campuses?: string[];
-        programmes?: string[];
-        logoSrc?: string;
-        universityName?: string;
-      },
-    ]) => {
-      if (cancelled) return;
-      setRow(requestData.request ?? null);
-      setEmailConfirmed(Boolean(me.emailConfirmed));
-      setConfirmPath(me.confirmPath ?? null);
-      setMailConfigured(Boolean(me.mailConfigured));
-      setCampuses(lists.campuses ?? []);
-      setProgrammes(lists.programmes ?? []);
-      if (lists.logoSrc) setLogoSrc(lists.logoSrc);
-      if (lists.universityName) {
-        setSchoolName(lists.universityName.toUpperCase());
-      }
-      setLoaded(true);
-    });
+      fetch("/api/requests").then(async (response) => ({
+        status: response.status,
+        data: await readJson<{ request?: IdRequest | null; error?: string }>(response),
+      })),
+      fetch("/api/lists").then(async (response) => ({
+        status: response.status,
+        data: await readJson<{
+          campuses?: string[];
+          programmes?: string[];
+          logoSrc?: string;
+          universityName?: string;
+        }>(response),
+      })),
+    ])
+      .then(([requestRes, listsRes]) => {
+        if (cancelled) return;
+        if (requestRes.status === 401 || listsRes.status === 401) {
+          window.location.replace("/sign-in");
+          return;
+        }
+        const requestData = requestRes.data;
+        const lists = listsRes.data;
+        if (!requestData || !lists) {
+          setError("Could not load your Request.");
+          setLoaded(true);
+          return;
+        }
+        setRow(requestData.request ?? null);
+        setCampuses(officialCampuses(lists.campuses ?? []));
+        setProgrammes(officialProgrammes(lists.programmes ?? []));
+        if (lists.logoSrc) setLogoSrc(lists.logoSrc);
+        if (lists.universityName) {
+          setSchoolName(lists.universityName.toUpperCase());
+        }
+        setLoaded(true);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setError("Could not load your Request.");
+        setLoaded(true);
+      });
     return () => {
       cancelled = true;
     };
@@ -72,15 +91,19 @@ export default function StudentPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ reason }),
     });
-    const data = (await response.json()) as {
+    const data = await readJson<{
       request?: IdRequest;
       error?: string;
-    };
-    if (!response.ok) {
-      setError(data.error ?? "Could not start a Request.");
+    }>(response);
+    if (response.status === 401) {
+      window.location.replace("/sign-in");
       return;
     }
-    setRow(data.request ?? null);
+    if (!response.ok) {
+      setError(data?.error ?? "Could not start a Request.");
+      return;
+    }
+    setRow(data?.request ?? null);
   }
 
   async function updateFields(fields: StudentIdCardInput) {
@@ -95,16 +118,20 @@ export default function StudentPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fields: row.fields }),
     });
-    const data = (await response.json()) as {
+    const data = await readJson<{
       request?: IdRequest;
       error?: string;
-    };
+    }>(response);
+    if (response.status === 401) {
+      window.location.replace("/sign-in");
+      return;
+    }
     if (!response.ok) {
-      setError(data.error ?? "Could not save.");
+      setError(data?.error ?? "Could not save.");
       return;
     }
     setError("");
-    setRow(data.request ?? row);
+    setRow(data?.request ?? row);
   }
 
   async function send() {
@@ -115,16 +142,20 @@ export default function StudentPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "send", fields: row.fields }),
     });
-    const data = (await response.json()) as {
+    const data = await readJson<{
       request?: IdRequest;
       error?: string;
-    };
+    }>(response);
+    if (response.status === 401) {
+      window.location.replace("/sign-in");
+      return;
+    }
     if (!response.ok) {
-      setError(data.error ?? "Could not send.");
+      setError(data?.error ?? "Could not send.");
       return;
     }
     setError("");
-    setRow(data.request ?? row);
+    setRow(data?.request ?? row);
   }
 
   if (!loaded) {
@@ -142,24 +173,9 @@ export default function StudentPage() {
           <h1 className="text-2xl font-semibold tracking-tight">
             Your Student ID Card
           </h1>
-          <PhonePing />
-          {!emailConfirmed ? (
-            <div className="mt-4 rounded-md border border-info bg-info-fill px-4 py-3 text-[15px] leading-6">
-              <p>
-                {mailConfigured
-                  ? "A confirm link was sent to your Email. Click it before you can send a Request."
-                  : "Click the confirm link sent to your Email before you can send a Request."}
-              </p>
-              {confirmPath ? (
-                <p className="mt-2">
-                  Mail is not connected yet, so open it here:{" "}
-                  <a className="font-medium text-accent" href={confirmPath}>
-                    Confirm Email
-                  </a>
-                </p>
-              ) : null}
-            </div>
-          ) : null}
+          <div className="mt-4">
+            <PhonePingSwitch />
+          </div>
           {!row || row.status === "picked_up" ? (
             <EmptyStudent last={row} onStart={start} />
           ) : (
@@ -167,7 +183,6 @@ export default function StudentPage() {
               row={row}
               editable={Boolean(editable)}
               error={error}
-              emailConfirmed={emailConfirmed}
               onFields={updateFields}
               onSaveDraft={saveDraft}
               onSend={send}
@@ -226,7 +241,6 @@ function ActiveStudent({
   row,
   editable,
   error,
-  emailConfirmed,
   onFields,
   onSaveDraft,
   onSend,
@@ -236,7 +250,6 @@ function ActiveStudent({
   row: IdRequest;
   editable: boolean;
   error: string;
-  emailConfirmed: boolean;
   onFields: (fields: StudentIdCardInput) => void;
   onSaveDraft: () => void;
   onSend: () => void;
@@ -295,8 +308,7 @@ function ActiveStudent({
         <div className="flex flex-wrap gap-3">
           <button
             type="button"
-            className="rounded-md bg-accent px-4 py-2.5 text-[15px] font-semibold text-white disabled:opacity-60"
-            disabled={!emailConfirmed}
+            className="rounded-md bg-accent px-4 py-2.5 text-[15px] font-semibold text-white"
             onClick={onSend}
           >
             {row.status === "turned_down" ? "Send again" : "Send Request"}

@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Next.js 16 on Vercel. Supabase for Postgres, Auth, and Photo files. Prisma for Requests and settings. Tailwind and shadcn for UI. PWA so Students can add the app on a phone. Resend for “we said no” and “come pick up” mail; Auth confirm and reset links may stay on Supabase at first. Confirmed in `docs/adr/0005-next-vercel-supabase.md`. No app scaffold exists in the repo yet.
+Next.js 16 on Vercel. Postgres for Requests, settings, and Better Auth users/sessions. Prisma for data access. Tailwind and shadcn for UI. PWA so Students can add the app on a phone. Resend for “we said no” and “come pick up” mail and for password reset links. Confirmed in `docs/adr/0005-next-vercel-postgres.md`.
 
 ## Users
 
@@ -38,7 +38,7 @@ It is not a digital ID, access card, payment card, badge, or a library system. �
 - Students apply from the internet, typically a phone. The app is a PWA; email is the backup when a phone ping never arrives.
 - Print is at one central desk on a Windows PC, credit-card size, Evolis PVC printer, from the browser (no Evolis extra kit in v1). Admins may accept Requests from anywhere. After Print, the plastic is sent to the Student’s Campus outside this system.
 - Pickup is at the Campus named on the Request, only after Arrival. Pinging at Print time would send Students to an empty desk.
-- Passwords live in Supabase Auth. Students must click a confirm link before they can send a Request. Admin still checks that the person is a real student.
+- Passwords live in Better Auth. Admin still checks that the person is a real student.
 
 ## Capabilities and Constraints
 
