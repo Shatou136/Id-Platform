@@ -35,7 +35,7 @@ It is not a digital ID, access card, payment card, badge, or a library system. â
 ## Operating Context
 
 - One university: St. Louis University Institute (SLUI) in Cameroon. English.
-- Students apply from the internet, typically a phone. The app is a PWA; email is the backup when a phone ping never arrives.
+- Students apply from the internet, typically a phone. The app is a PWA they can install on a phone or laptop (`http://localhost:3000` in development); email is the backup when a phone ping never arrives.
 - Print is at one central desk on a Windows PC, credit-card size, Evolis PVC printer, from the browser (no Evolis extra kit in v1). Admins may accept Requests from anywhere. After Print, the plastic is sent to the Studentâ€™s Campus outside this system.
 - Pickup is at the Campus named on the Request, only after Arrival. Pinging at Print time would send Students to an empty desk.
 - Passwords live in Better Auth. Admin still checks that the person is a real student.

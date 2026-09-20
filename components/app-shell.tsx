@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AccountMenu } from "@/components/account-menu";
 import { StaffBackBar } from "@/components/admin-back-button";
+import { InstallAppButton } from "@/components/install-app-button";
 import { PingBell } from "@/components/ping-bell";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SCHOOL } from "@/lib/school-identity";
@@ -58,6 +59,7 @@ export function AppShell({ role, children }: AppShellProps) {
               </Link>
             ) : null}
             {role === "Student" ? <PingBell /> : null}
+            <InstallAppButton />
             <ThemeToggle />
             <AccountMenu />
           </nav>

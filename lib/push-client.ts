@@ -1,3 +1,5 @@
+import { pwaSupported, registerServiceWorker } from "@/lib/pwa";
+
 function urlBase64ToUint8Array(base64: string) {
   const padding = "=".repeat((4 - (base64.length % 4)) % 4);
   const binary = atob((base64 + padding).replace(/-/g, "+").replace(/_/g, "/"));
@@ -10,9 +12,7 @@ export type PushResult = { ok: boolean; error?: string };
 
 export function pushSupported() {
   return (
-    typeof window !== "undefined" &&
-    window.isSecureContext &&
-    "serviceWorker" in navigator &&
+    pwaSupported() &&
     "PushManager" in window &&
     "Notification" in window
   );
@@ -20,7 +20,7 @@ export function pushSupported() {
 
 export async function registerPushWorker() {
   if (!pushSupported()) return null;
-  return navigator.serviceWorker.register("/sw.js", { scope: "/" });
+  return registerServiceWorker();
 }
 
 export async function subscribeToPings(): Promise<PushResult> {
